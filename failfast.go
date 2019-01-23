@@ -1,4 +1,7 @@
+package main
+
 import "sync"
+import "fmt"
 import "time"
 
 func deleteClusterPairsInParallel(cmDests []int) <-chan error {
