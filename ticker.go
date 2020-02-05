@@ -21,31 +21,54 @@ func num(alertChan chan bool) {
 }
 
 func program(errChan chan bool) {
-	go num(errChan)
+	num(errChan)
 	fmt.Printf("\nDoing something.")
 	time.Sleep(time.Second * 5)
 	fmt.Printf("\nSomething done.")
 }
 
 func main() {
-	var doneChan chan bool
-	var quit chan bool
+	quit := make(chan bool, 1)
+	//expired := make(chan bool, 1)
 
-	program(quit)
+	ticker := time.NewTicker(1 * time.Second)
+	startTime := time.Now()
 
+	var x bool
+	var y bool
 	go func() {
-		for {
-			select {
-			//case <-doneChan:
-			//	fmt.Println("Alert Done")
-			//	return
-
-			case <-quit:
-				//ticker.Stop()
-				fmt.Println("Quit received.")
-				return
+		for _ = range ticker.C {
+			i := rand.Intn(6)
+			fmt.Printf("\nAt T %v I: %d\n", time.Since(startTime), i)
+			if i == 5 {
+				x = true
+				quit <- true
+				fmt.Printf("\nPoison pill.")
 			}
 		}
 	}()
+
+	go func() {
+		time.Sleep(time.Second * 10)
+		quit <- true
+		y = true
+	}()
+
+	for {
+		select {
+		case <-ticker.C:
+			fmt.Println("Ticking")
+
+		case <-quit:
+			fmt.Println("Quit received.")
+		}
+		if x {
+			fmt.Println("Number found.")
+			break
+		} else if y {
+			fmt.Println("Timer expired")
+			break
+		}
+	}
 
 }
