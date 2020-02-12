@@ -22,6 +22,9 @@ func main() {
 
 }
 
+func createNode() {
+}
+
 func inOrder(root *Node) {
 	if root == nil {
 		return
