@@ -6,13 +6,10 @@ func main() {
 	fmt.Println("vim-go")
 }
 
-/**
- * Definition for an Interval.
- * type Interval struct {
- *     Start int
- *     End   int
- * }
- */
+type Interval struct {
+	Start int
+	End   int
+}
 
 const MaxUint = ^uint(0)
 const MinUint = 0
