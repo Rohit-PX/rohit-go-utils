@@ -87,10 +87,14 @@ func Constructor() MedianFinder {
 
 
 func (this *MedianFinder) AddNum(num int)  {
-	if this.maxHeap.Len() < 1 &&  this.minHeap.Len() < 1 {
+	if this.maxHeap.Len() == 0 &&  this.minHeap.Len() == 0  {
 		// Since both heaps are empty add to max heap for now (we could also add to min heap if we wanted)
 		heap.Push(this.minHeap,num)
 		return
+	} else if this.maxHeap.Len() == 0 {
+		heap.Push(this.maxHeap,num)
+	} else {
+		heap.Push(this.minHeap,num)
 	}
 	// Check which heap should the current number go into
 	//minHead := this.minHeap.Peek()
