@@ -1,0 +1,6 @@
+[
+  {"customer_id": "c1", "amount": 2000, "currency": "usd", "status": "success"},
+  {"customer_id": "c2", "amount": 1500, "currency": "usd", "status": "failed"},
+  {"customer_id": "c1", "amount": 3000, "currency": "eur", "status": "success"}
+]
+
